@@ -4,6 +4,7 @@ import React, { useState, useEffect } from 'react'
 import { getPokemonDetailsApi } from "../api/pokemon"
 import Header from '../components/Pokemon/Header'
 import Type from '../components/Pokemon/Type'
+import Stats from "../components/Pokemon/Stats"
 
 export default function Pokemon(props) {
   const { route: {params}, navigation } = props
@@ -33,6 +34,7 @@ export default function Pokemon(props) {
       id={params.id}
       />
       <Type types={pokemon.types}/>
+      <Stats stats={pokemon.stats}/>
     </ScrollView>
   )
 }
