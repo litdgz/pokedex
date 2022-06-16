@@ -27,7 +27,7 @@ export default function Navigation() {
                 <Tab.Screen name="Account" component={AccountNavigation} options={{
                     tabBarLabel: "Cuenta",
                     tabBarIcon: (color, size) => (
-                        <Icon name="user" color={color} size={size}/>
+                        <Icon name="user" color={color} size={20}/>
                     )
                 }}/>
         </Tab.Navigator>

@@ -9,7 +9,6 @@ export default function App() {
   return (
     <NavigationContainer>
       <Navigation />  
-      <View style={styles.header}></View>
     </NavigationContainer>
   );
 }
@@ -21,9 +20,4 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
-  header: {
-    backgroundColor: "#fff",
-    width: 320,
-    height: 84.46
-  }
 });
