@@ -1,17 +1,54 @@
-import { Button, SafeAreaView, Text } from 'react-native'
-import React, { useState, useEffect } from 'react'
+import { SafeAreaView, Text } from 'react-native'
+import React, { useState, useCallback } from 'react'
+import { useFocusEffect } from "@react-navigation/native"
 
 import { getPokemonsFavoriteApi } from '../api/favorite'
+import { getPokemonDetailsApi } from "../api/pokemon"
+import useAuth from "../hooks/useAuth"
+import PokemonList from "../components/PokemonList"
 
 export default function Favorites() {
-  const checkFavorites = async () => {
-    const response = await getPokemonsFavoriteApi()
-      console.log(response)
-  }
+  const [pokemons, setPokemons] = useState()
+  const { auth } = useAuth()
+  console.log(pokemons);
+
+  useFocusEffect(
+    useCallback(() => {
+      if (auth) {
+        (async () => {
+          try {
+            const response = await getPokemonsFavoriteApi()
+            const pokemonsArray = [];
+  
+            for await (const id of response) {
+              const pokemonDetails = await getPokemonDetailsApi(id)
+  
+              pokemonsArray.push({
+                id: pokemonDetails.id,
+                name: pokemonDetails.name,
+                type: pokemonDetails.types[0].type.name,
+                order: pokemonDetails.order,
+                image: pokemonDetails.sprites.other['official-artwork'].front_default
+              })
+            }
+  
+            setPokemons(pokemonsArray)
+          } catch (error) {
+            throw error
+          }
+          
+        })()
+      }
+    }, [auth])
+  )
+
+  
+  
   return (
     <SafeAreaView>
-      <Text>Favorites</Text>
-      <Button title="Obtener favoritos" onPress={checkFavorites}/>
+      {!auth ? <Text>Usuario no logeado</Text> 
+      : 
+      <PokemonList pokemons={pokemons}/>}
     </SafeAreaView>
   )
 }
