@@ -18,7 +18,8 @@
       "**/*"
     ],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.carlosdominguez.pokedex"
     },
     "android": {
       "package": "com.carlosdominguez.pokedex",
@@ -29,6 +30,14 @@
     },
     "web": {
       "favicon": "./assets/favicon.png"
+    },
+    "build": {
+      "preview": {
+        "ios": {
+          "simulator": true
+        }
+      },
+      "production": {}
     }
   }
 }
